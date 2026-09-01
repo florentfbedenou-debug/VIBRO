@@ -1,16 +1,93 @@
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
     font-family: Arial, sans-serif;
-    background: #111;
+    background: #0f0f0f;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 25px;
     text-align: center;
 }
 
-h1 {
-    margin-top: 100px;
-    font-size: 50px;
+.logo {
+    font-size: 52px;
+    font-weight: bold;
+    letter-spacing: 5px;
 }
 
-p {
-    font-size: 20px;
+.slogan {
+    margin: 10px 0 30px;
+    color: #aaa;
+}
+
+.auth-box {
+    background: #1b1b1b;
+    padding: 30px;
+    border-radius: 18px;
+}
+
+.auth-box h2 {
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: #252525;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #777;
+}
+
+#loginButton {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #111;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#loginButton:hover {
+    opacity: 0.85;
+}
+
+.register-text {
+    margin-top: 20px;
+    color: #aaa;
+}
+
+#showRegister {
+    border: none;
+    background: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#message {
+    margin-top: 15px;
+    min-height: 20px;
 }
