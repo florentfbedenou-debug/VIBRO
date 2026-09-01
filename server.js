@@ -7,24 +7,86 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Permet de lire les données JSON
 app.use(express.json());
-
-// Permet d'utiliser les fichiers du dossier public
 app.use(express.static(path.join(__dirname, "public")));
 
-// Connexion des utilisateurs
-io.on("connection", (socket) => {
-    console.log("Un utilisateur est connecté");
+// Utilisateurs temporaires
+const users = [];
 
-    socket.on("disconnect", () => {
-        console.log("Un utilisateur est déconnecté");
+// INSCRIPTION
+app.post("/api/register", (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).json({
+            success: false,
+            message: "Remplis tous les champs."
+        });
+    }
+
+    const existingUser = users.find(
+        user => user.username.toLowerCase() === username.toLowerCase()
+    );
+
+    if (existingUser) {
+        return res.status(400).json({
+            success: false,
+            message: "Ce nom d'utilisateur existe déjà."
+        });
+    }
+
+    const user = {
+        id: Date.now(),
+        username,
+        password
+    };
+
+    users.push(user);
+
+    res.json({
+        success: true,
+        message: "Compte créé avec succès !"
     });
 });
 
-// Démarrage du serveur
-server.listen(PORT, () => {
-    console.log(`VIBRO fonctionne sur http://localhost:${PORT}`);
+// CONNEXION
+app.post("/api/login", (req, res) => {
+    const { username, password } = req.body;
+
+    const user = users.find(
+        user =>
+            user.username.toLowerCase() === username.toLowerCase() &&
+            user.password === password
+    );
+
+    if (!user) {
+        return res.status(401).json({
+            success: false,
+            message: "Nom d'utilisateur ou mot de passe incorrect."
+        });
+    }
+
+    res.json({
+        success: true,
+        message: "Connexion réussie !",
+        user: {
+            id: user.id,
+            username: user.username
+        }
+    });
+});
+
+// Socket.IO
+io.on("connection", socket => {
+    console.log("Utilisateur connecté :", socket.id);
+
+    socket.on("disconnect", () => {
+        console.log("Utilisateur déconnecté :", socket.id);
+    });
+});
+
+server.listen(PORT, "0.0.0.0", () => {
+    console.log(`VIBRO fonctionne sur le port ${PORT}`);
 });
