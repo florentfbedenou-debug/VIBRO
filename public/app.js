@@ -46,7 +46,11 @@ showRegisterButton.addEventListener("click", async () => {
         });
 
         const data = await response.json();
-        message.textContent = data.message;
+       if (data.success) {
+    window.location.href = "/chat.html";
+} else {
+    message.textContent = data.message;
+}
     } catch (error) {
         message.textContent = "Erreur de connexion au serveur.";
     }
