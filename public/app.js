@@ -3,7 +3,6 @@ const showRegisterButton = document.getElementById("showRegister");
 const message = document.getElementById("message");
 
 loginButton.addEventListener("click", async () => {
-
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
 
@@ -18,23 +17,17 @@ loginButton.addEventListener("click", async () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                username,
-                password
-            })
+            body: JSON.stringify({ username, password })
         });
 
         const data = await response.json();
-
         message.textContent = data.message;
-
     } catch (error) {
         message.textContent = "Erreur de connexion au serveur.";
     }
 });
 
 showRegisterButton.addEventListener("click", async () => {
-
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
 
@@ -49,19 +42,12 @@ showRegisterButton.addEventListener("click", async () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                username,
-                password
-            })
+            body: JSON.stringify({ username, password })
         });
 
         const data = await response.json();
-
         message.textContent = data.message;
-
     } catch (error) {
         message.textContent = "Erreur de connexion au serveur.";
-    }
-});
     }
 });
