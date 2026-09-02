@@ -78,9 +78,12 @@ app.post("/api/login", (req, res) => {
     });
 });
 
-// Socket.IO
 io.on("connection", socket => {
     console.log("Utilisateur connecté :", socket.id);
+
+    socket.on("chat message", message => {
+        io.emit("chat message", message);
+    });
 
     socket.on("disconnect", () => {
         console.log("Utilisateur déconnecté :", socket.id);
