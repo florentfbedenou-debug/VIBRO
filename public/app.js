@@ -71,6 +71,3 @@ showRegisterButton.addEventListener("click", async () => {
         message.textContent = "Erreur de connexion au serveur.";
     }
 });
-```
-
-});
