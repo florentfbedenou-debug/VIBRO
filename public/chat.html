@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -9,71 +10,103 @@
 
 <body>
 
-    <div class="app">
+```
+<div class="app">
 
-        <header class="topbar">
-            <div class="logo">VIBRO</div>
+    <header class="topbar">
+        <div class="logo">VIBRO</div>
 
-            <div class="profile">
-                <div class="avatar">F</div>
-                <span>Mon profil</span>
-            </div>
-        </header>
-
-        <div class="content">
-
-            <aside class="users">
-                <h2>Discussions</h2>
-
-                <div class="search">
-                    <input type="text" placeholder="Rechercher...">
-                </div>
-
-                <div class="user active">
-                    <div class="avatar">👤</div>
-                    <div>
-                        <strong>Discussion</strong>
-                        <p>Bienvenue sur VIBRO 💬</p>
-                    </div>
-                </div>
-            </aside>
-
-            <main class="chat">
-
-                <div class="chat-header">
-                    <div class="avatar">👤</div>
-
-                    <div>
-                        <strong>Discussion</strong>
-                        <p>En ligne</p>
-                    </div>
-                </div>
-
-                <div class="messages" id="messages">
-
-                    <div class="message received">
-                        Bienvenue sur VIBRO 👋
-                    </div>
-
-                </div>
-
-                <div class="message-box">
-
-                    <input
-                        type="text"
-                        id="messageInput"
-                        placeholder="Écrire un message..."
-                    >
-
-                    <button id="sendButton">
-                        Envoyer
-                    </button>
-
-                </div>
-
-            </main>
-
+        <div class="profile">
+            <div class="avatar" id="profileAvatar">👤</div>
+            <span id="profileName">Mon profil</span>
         </div>
+    </header>
+
+    <div class="content">
+
+        <aside class="users">
+            <h2>Discussions</h2>
+
+            <div class="search">
+                <input type="text" placeholder="Rechercher...">
+            </div>
+
+            <div class="user active">
+                <div class="avatar" id="userAvatar">👤</div>
+
+                <div>
+                    <strong id="userName">Discussion</strong>
+                    <p>Bienvenue sur VIBRO 💬</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="chat">
+
+            <div class="chat-header">
+                <div class="avatar">👤</div>
+
+                <div>
+                    <strong id="chatName">Discussion</strong>
+                    <p>En ligne</p>
+                </div>
+            </div>
+
+            <div class="messages" id="messages">
+
+                <div class="message received">
+                    Bienvenue sur VIBRO 👋
+                </div>
+
+            </div>
+
+            <div class="message-box">
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Écrire un message..."
+                >
+
+                <button id="sendButton">
+                    Envoyer
+                </button>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="chat.js"></script>
+
+<script>
+    const savedUser = localStorage.getItem("vibroUser");
+
+    if (savedUser) {
+        const user = JSON.parse(savedUser);
+
+        document.getElementById("profileName").textContent = user.username;
+        document.getElementById("userName").textContent = user.username;
+        document.getElementById("chatName").textContent = user.username;
+
+        if (user.username) {
+            document.getElementById("profileAvatar").textContent =
+                user.username.charAt(0).toUpperCase();
+
+            document.getElementById("userAvatar").textContent =
+                user.username.charAt(0).toUpperCase();
+        }
+    }
+</script>
+```
+
+</body>
+</html>
+
 
     </div>
     <script src="/socket.io/socket.io.js"></script>
